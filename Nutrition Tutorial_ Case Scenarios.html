@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nutrition Tutorial: Case Scenarios</title>
+<style>
+:root{--bg:#fff;--fg:#1d2a3a;--mut:#5b6b7c;--card:#f3f7f8;--bd:#cfdadf;--ac:#00858c;--acfg:#fff;--ok:#1b7f3b;--okbg:#e1f4e7;--no:#b3261e;--nobg:#fbe3e1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){color-scheme:dark;--bg:#121a22;--fg:#e6edf3;--mut:#9fb0bf;--card:#1b2630;--bd:#30404d;--ac:#35b8bf;--acfg:#08181a;--ok:#6fd58c;--okbg:#17321f;--no:#ff8a80;--nobg:#3a1c1a}}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#121a22;--fg:#e6edf3;--mut:#9fb0bf;--card:#1b2630;--bd:#30404d;--ac:#35b8bf;--acfg:#08181a;--ok:#6fd58c;--okbg:#17321f;--no:#ff8a80;--nobg:#3a1c1a}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:760px;margin:0 auto;padding:16px}
+h1{font-size:1.3rem;margin:4px 0}
+h2{font-size:1.1rem;margin:20px 0 8px}
+.sub{color:var(--mut);margin:0 0 12px}
+.score{display:flex;justify-content:space-between;align-items:center;gap:8px;background:var(--card);border:1px solid var(--bd);border-radius:10px;padding:10px 14px;margin-bottom:12px}
+.grp{font-size:.8rem;font-weight:700;color:var(--ac);text-transform:uppercase;letter-spacing:.04em;margin:10px 0 6px}
+.nav{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+button{font:inherit;color:inherit;cursor:pointer}
+.tab{border:1px solid var(--bd);background:var(--card);border-radius:10px;padding:8px;text-align:left;line-height:1.3}
+.tab small{display:block;color:var(--mut)}
+.tab.on{background:var(--ac);color:var(--acfg);border-color:var(--ac)}
+.tab.on small{color:var(--acfg)}
+.case{background:var(--card);border-left:4px solid var(--ac);border-radius:8px;padding:12px 14px;margin:14px 0}
+.q{border:1px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:12px}
+.q p{margin:0 0 8px;font-weight:600}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--bd);background:var(--bg);border-radius:8px;padding:8px 10px;margin-bottom:6px}
+.opt:hover:not(:disabled){border-color:var(--ac)}
+.opt:disabled{cursor:default;opacity:1}
+.opt.ok{background:var(--okbg);border-color:var(--ok);color:var(--ok)}
+.opt.no{background:var(--nobg);border-color:var(--no);color:var(--no)}
+.fb{font-size:.9rem;margin-top:4px}
+textarea{width:100%;min-height:70px;font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px;resize:vertical}
+.btn{border:1px solid var(--ac);background:transparent;color:var(--ac);border-radius:8px;padding:6px 12px;margin-top:6px}
+.ans{background:var(--okbg);color:var(--fg);border-radius:8px;padding:8px 10px;margin-top:8px;font-size:.95rem}
+.reset{margin:20px 0;color:var(--mut);border-color:var(--bd)}
+</style></head><body><main>
+<h1>Nutrition Tutorial: Case Scenarios</h1>
+<p class="sub">Choose a scenario, answer the MCQs for instant feedback, and attempt each short answer before revealing the model answer.</p>
+<div id="app"></div>
+</main>
+<script>
+const S=[
+{g:0,n:"1.1",t:"The Crash Diet",s:"Carbohydrates",
+c:"Aisha, 21, a medical student, eats almost no carbohydrate and skips many meals for two weeks. By day 10 she is tired, with headaches and shaky hands. Urine shows ketones, blood glucose is low, and she has lost muscle mass despite gym training.",
+m:[["Which macronutrient is the main energy source and essential fuel for the brain and nervous system?",["Protein","Carbohydrate","Fat","Vitamins"],1],
+["Most likely reason for ketones in her urine?",["Increased fat breakdown because carbohydrate is insufficient","Excess glycogen storage","Excess fibre intake","Increased absorption of disaccharides"],0],
+["Her muscle loss is best explained by:",["Increased muscle glycogen storage","An enhanced protein-sparing effect","Protein being used for energy when carbohydrate is insufficient","Fat converting directly into muscle"],2],
+["Main glycogen storage sites?",["Pancreas and spleen","Adipose tissue and skin","Brain and kidney","Liver and skeletal muscles"],3],
+["Table sugar (sucrose) is made of:",["Glucose + glucose","Glucose + galactose","Glucose + fructose","Fructose + galactose"],2]],
+a:[["Define macronutrients and name the three major types.","Nutrients needed in large quantities that provide energy, structural components and molecules for metabolic regulation. Carbohydrates, proteins, lipids."],
+["Explain how glycogen maintains blood glucose in fasting, and why Aisha’s glucose fell.","Glycogen (liver, muscle) is broken down to release glucose during fasting or exercise. Her intake was too low and her stores were depleted."],
+["Describe the protein-sparing effect and why it matters for Aisha.","With enough carbohydrate, protein is kept for repair and growth. Without it, protein is burned for energy, so her muscle broke down."],
+["Name the three pathways by which glucose metabolism generates ATP.","Glycolysis, Krebs cycle, oxidative phosphorylation."],
+["List four effects of carbohydrate deficiency and two risks of chronic excess.","Deficiency: fatigue, ketosis, muscle breakdown, hypoglycaemia. Excess (any two): obesity, type 2 diabetes, insulin resistance, dental caries, cardiovascular risk."]]},
+{g:0,n:"1.2",t:"Two Siblings",s:"Proteins",
+c:"At a rural clinic, a 3-year-old boy has swollen legs and abdomen, a fatty liver and poor growth. His 2-year-old sister is extremely thin with severe weight loss and muscle wasting. Their diet is mostly rice porridge. Their uncle, a bodybuilder drinking several protein shakes daily, feels dehydrated.",
+m:[["The boy’s presentation is characteristic of:",["Marasmus","Ketosis","Kwashiorkor","Hypoglycaemia"],2],
+["The girl’s presentation is characteristic of:",["Marasmus","Kwashiorkor","Fatty liver disease","Atherosclerosis"],0],
+["Which protein is correctly matched with its function?",["Ferritin: contractile","Immunoglobulin: protective","Haemoglobin: structural","Actin: storage"],1],
+["Essential amino acids are those that:",["The body makes from carbohydrate","Cannot be synthesised by the body and must come from the diet","Are found only in animal foods","Are needed only in childhood"],1],
+["A possible effect of chronically excessive protein intake:",["Increased calcium loss","Ketosis","Kwashiorkor","Poor absorption of fat-soluble vitamins"],0]],
+a:[["Distinguish kwashiorkor from marasmus (two features each).","Kwashiorkor: oedema, fatty liver, poor growth. Marasmus: severe weight loss, muscle wasting."],
+["Define a protein and describe four roles.","Macromolecules of amino acids joined by peptide bonds. Roles: growth and repair, enzymes, hormones, immune defence (also transport, structure, contraction)."],
+["Explain the role of enzymes with two examples.","Most enzymes are proteins that catalyse reactions and regulate metabolic pathways. E.g. amylase, pepsin, DNA polymerase."],
+["Name two protein hormones and two transport proteins.","Hormones: insulin, glucagon, growth hormone (regulate metabolism and growth). Transport: haemoglobin (oxygen), albumin (fatty acids, drugs)."],
+["Explain three risks of the uncle’s high protein intake and the recommended protein share of energy.","Kidney stress, dehydration, increased calcium loss. Protein should be 10–35% of energy."]]},
+{g:0,n:"1.3",t:"Mr Tan’s Health Check",s:"Lipids",
+c:"Mr Tan, 52, eats mostly fried food and fatty red meat. He is obese with fatty liver on ultrasound. A typical meal has 60 g carbohydrate, 20 g protein and 30 g fat. His daughter eats an extremely low-fat diet and has dry skin, irregular periods and poor absorption of fat-soluble vitamins.",
+m:[["Energy provided by 1 g of fat?",["4 kcal","5 kcal","9 kcal","7 kcal"],2],
+["Total energy of Mr Tan’s typical meal?",["410 kcal","590 kcal","630 kcal","780 kcal"],1],
+["Which lipids are key components of cell membranes?",["Triglycerides and glycogen","Phospholipids and cholesterol","Starch and fibre","Albumin and ferritin"],1],
+["Triglycerides stored in adipose tissue mainly provide energy during:",["The first minutes after a meal","Digestion of disaccharides","Growth and tissue repair only","Fasting or prolonged exercise"],3],
+["Which problems are linked to very low lipid intake?",["Atherosclerosis and coronary heart disease","Fatty liver and obesity","Dry skin, hormonal imbalance, poor vitamin absorption","Oedema and muscle wasting"],2]],
+a:[["Calculate the % of energy from fat in the meal and compare with the recommended range.","30 × 9 = 270 kcal of 590 kcal ≈ 46%, above the 20–35% range (carbohydrate ≈ 41%, below 45–65%; protein ≈ 14%, within range)."],
+["Describe a triglyceride’s structure and its role in energy storage.","One glycerol plus three fatty acid chains; stored in adipose tissue, 9 kcal/g, supplies energy in fasting or prolonged exercise."],
+["List five functions of lipids.","Long-term energy storage, membrane structure, hormone production, insulation and organ protection, absorption of fat-soluble vitamins."],
+["Distinguish saturated from unsaturated fats.","Saturated: mainly animal products. Unsaturated: monounsaturated and polyunsaturated."],
+["Explain Mr Tan’s health risks and the recommended macronutrient distribution.","Excess lipids: obesity, atherosclerosis, coronary heart disease, fatty liver. Carbohydrate 45–65%, protein 10–35%, fat 20–35% of energy."]]},
+{g:1,n:"2.1",t:"Mei Ling’s Supplement Shelf",s:"Vitamins",
+c:"Mei Ling, 29, has been vegan for three years and has thinning hair, tiredness, pallor, finger tingling and a sore tongue. She takes folic acid daily, a high-dose biotin “hair-skin-nails” product and a multivitamin, eats fortified cereal and plans pregnancy within a year. Her palms look yellow-orange since she began drinking carrot juice daily. Her father takes warfarin.",
+m:[["Most likely deficiency given fatigue, tingling and sore tongue in a vegan?",["Vitamin C","Vitamin E","Vitamin B12","Vitamin K"],2],
+["Why is folic acid alone potentially harmful here?",["It can mask blood signs of B12 deficiency while nerve injury continues","It causes scurvy","It raises vitamin A levels","It blocks calcium absorption"],0],
+["Best explanation for yellow-orange palms?",["Vitamin A poisoning","High carotenoid intake, not the same as vitamin A poisoning","Iron overload","Vitamin D toxicity"],1],
+["Why ask about biotin before blood tests?",["It makes results more accurate","It washes out within minutes","It is fat-soluble","High-dose biotin can interfere with laboratory tests"],3],
+["Which form of vitamin A risks birth defects at high doses?",["Vitamin C","Thiamine","Preformed vitamin A","Folate"],2]],
+a:[["Distinguish fat-soluble from water-soluble vitamins, with one exception.","Fat-soluble (A, D, E, K): absorbed with fats, stored, may accumulate. Water-soluble (B-complex, C): smaller stores, regular intake needed; B12 is the exception with substantial stores."],
+["Compare folate and B12 deficiency: one similarity, one key difference.","Both cause megaloblastic anaemia, fatigue and sore tongue. B12 deficiency can also cause neurological damage (paraesthesia, impaired balance)."],
+["Explain why “water-soluble” does not mean harmless.","Prolonged high-dose B6 can cause peripheral sensory neuropathy; high-dose niacin can cause flushing, liver injury and glucose disturbance."],
+["Why can combining supplements be a problem, and why does preformed vitamin A need caution before pregnancy?","Overlapping products raise total doses unintentionally (check labels and units). High-dose preformed vitamin A can cause liver injury and birth defects."],
+["What should her father know about vitamin K, and what is the therapist’s professional boundary?","Vitamin K activates clotting factors and interacts with warfarin; keep intake consistent and ask a clinician. Therapists should not recommend megadoses, diagnose from appearance or treat disease; refer persistent fatigue, pallor or numbness."]]},
+{g:1,n:"2.2",t:"Nurul’s Hair Loss",s:"Minerals",
+c:"Nurul, 31, is vegetarian with heavy periods. She has hair thinning, fatigue, breathlessness on stairs and brittle nails. She drinks tea with every meal and eats instant noodles most lunches. She wants to buy a high-dose iron and zinc “hair booster”. Her cousin has chronic kidney disease.",
+m:[["Deficiency of which mineral best fits fatigue, pallor, breathlessness and brittle nails?",["Iron","Iodine","Fluoride","Sulfur"],0],
+["Which habit improves non-haem iron absorption?",["Tea with meals","Vitamin C-rich foods with meals","Avoiding all fruit","Calcium with every meal"],1],
+["Most appropriate first step for Nurul?",["Start high-dose iron","Start high-dose zinc","Refer for medical assessment including haemoglobin and ferritin","Wait for the nails to improve"],2],
+["Long-term high-dose zinc can cause deficiency of:",["Iodine","Sodium","Magnesium","Copper"],3],
+["Main mineral concern with daily instant noodles?",["Sodium and raised blood pressure","Iron overload","Vitamin D toxicity","Magnesium deficiency"],0]],
+a:[["Differentiate haem from non-haem iron; which does Nurul mainly eat?","Haem: meat and seafood. Non-haem: legumes, tofu, leafy greens. Nurul mainly eats non-haem."],
+["Give dietary advice to improve her iron absorption.","Pair iron-rich plant foods with vitamin C-rich foods; avoid tea and coffee with meals."],
+["Why can’t hair thinning be diagnosed as deficiency by appearance?","It is nonspecific: iron or zinc deficiency, but also hormones, illness, genetics. Blood tests (haemoglobin, ferritin) are needed; refer."],
+["Explain risks of high-dose iron and zinc, and why assessment comes first.","Iron can damage the GI tract and organs; overdose is an emergency; keep away from children. High-dose zinc causes nausea and copper deficiency (anaemia, neurological symptoms). More is not always better."],
+["State roles of sodium and potassium, three ways to cut salt, and why her cousin needs individual advice.","Sodium: extracellular, fluid balance, nerves, blood pressure. Potassium: intracellular, muscle, nerves, heart rhythm. Compare labels, cut high-salt foods, choose less processed food. Kidney disease needs individualised sodium and potassium advice."]]},
+{g:1,n:"2.3",t:"Hot Day, Hot Takes",s:"Water",
+c:"A bridal makeup team works outdoors at a midday wedding in hot, humid weather. Farah has sweated heavily, barely drunk and now feels weak, dizzy and nauseous with a headache. A client drinks 5 litres of water daily to “detox” and clear acne. Hakim, a marathon runner, drank huge volumes of plain water in a race and now has nausea, headache and confusion.",
+m:[["Farah’s symptoms most likely indicate:",["Hyponatraemia","Heat exhaustion","Vitamin A toxicity","Scurvy"],1],
+["Which finding means emergency care is needed?",["Mild thirst","Dry mouth","Confusion, collapse or seizures","Slightly darker urine"],2],
+["Hakim’s symptoms are most consistent with:",["Hyponatraemia from diluted blood sodium","Dehydration","Hypercalcaemia","Beriberi"],0],
+["What does ADH do?",["Increases urine volume","Helps kidneys conserve water by increasing reabsorption","Stimulates sweating","Removes sodium from blood"],1],
+["Which statement about water adequate-intake estimates is correct?",["Everyone needs exactly 2 L/day","They are individual prescriptions","Needs are unaffected by climate","About 2.7 L (women) and 3.7 L (men) of total water, not individual prescriptions"],3]],
+a:[["List four functions of water.","Transport; temperature regulation; lubrication and protection; medium for chemical reactions and maintaining cell volume and circulation."],
+["Explain how the body regulates water balance.","Brain senses plasma concentration and volume and stimulates thirst; ADH makes kidneys reabsorb water; kidneys adjust urine volume and concentration; sodium governs extracellular water."],
+["Compare dehydration and overhydration.","Dehydration: low intake, sweating, fever, vomiting, diarrhoea; thirst, dry mouth, reduced urine, dizziness, headache. Overhydration: excess water dilutes sodium (hyponatraemia); nausea, headache, confusion, seizures."],
+["Advise the “5 L detox” client.","Adequate water prevents dehydration but does not reliably remove acne, erase wrinkles or replace moisturiser. Add gentle cleansing, moisturiser and sun protection; avoid forcing excess water."],
+["Describe immediate actions for Farah, emergency signs, and four factors affecting water needs.","Move to a cool area, rest, cool the body, give fluids if alert and able to swallow. Emergency: confusion, collapse, seizures, suspected heatstroke. Needs vary with body size, climate, activity, diet, pregnancy, illness, medications."]]}
+];
+const GN=["Lecture 1: Macronutrients","Lecture 2: Micronutrients & Water"];
+let cur=0;const A={},T={},R={};
+const esc=x=>x.replace(/&/g,"&amp;").replace(/</g,"&lt;");
+const ans=(si,i)=>A["m"+si+"_"+i];
+const sc=si=>{let r=0,d=0;S[si].m.forEach((q,i)=>{const v=ans(si,i);if(v!==undefined){d++;if(v===q[2])r++}});return[r,d]};
+function render(){
+ let tr=0,td=0;S.forEach((_,si)=>{const[r,d]=sc(si);tr+=r;td+=d});
+ let h=`<div class="score"><span><b>MCQ score:</b> ${tr} / 30</span><span>${td} of 30 answered</span></div>`;
+ GN.forEach((g,gi)=>{h+=`<div class="grp">${g}</div><div class="nav">`;
+  S.forEach((s,si)=>{if(s.g!==gi)return;const[r,d]=sc(si);
+   h+=`<button class="tab${si===cur?" on":""}" data-nav="${si}">${s.n} ${esc(s.s)}<small>${d?r+" / 5 correct":"Not started"}</small></button>`});
+  h+="</div>"});
+ const s=S[cur];
+ h+=`<h2>Scenario ${s.n}: ${esc(s.t)}</h2><div class="case">${esc(s.c)}</div><h2>Multiple-choice questions</h2>`;
+ s.m.forEach((q,i)=>{const v=ans(cur,i);
+  h+=`<div class="q"><p>${cur+1<0?"":s.n+"."+(i+1)} ${esc(q[0])}</p>`;
+  q[1].forEach((o,j)=>{let c="opt";if(v!==undefined){if(j===q[2])c+=" ok";else if(j===v)c+=" no"}
+   h+=`<button class="${c}" data-q="${i}" data-o="${j}"${v!==undefined?" disabled":""}>${String.fromCharCode(65+j)}) ${esc(o)}</button>`});
+  if(v!==undefined)h+=`<div class="fb">${v===q[2]?"Correct.":"Not quite. The correct answer is "+String.fromCharCode(65+q[2])+"."}</div>`;
+  h+="</div>"});
+ h+=`<h2>Short answer questions</h2>`;
+ s.a.forEach((q,i)=>{const k=cur+"_"+i;
+  h+=`<div class="q"><p>${s.n}.${i+6} ${esc(q[0])}</p><textarea data-t="${k}" placeholder="Type your answer here...">${esc(T[k]||"")}</textarea>
+  <button class="btn" data-r="${k}">${R[k]?"Hide":"Show"} model answer</button>${R[k]?`<div class="ans"><b>Model answer:</b> ${esc(q[1])}</div>`:""}</div>`});
+ h+=`<button class="btn reset" data-reset="1">Reset all answers</button>`;
+ document.getElementById("app").innerHTML=h}
+document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const d=b.dataset;
+ if(d.nav!==undefined){cur=+d.nav;render();window.scrollTo(0,0)}
+ else if(d.q!==undefined){const y=window.scrollY;A["m"+cur+"_"+d.q]=+d.o;render();window.scrollTo(0,y)}
+ else if(d.r){const y=window.scrollY;R[d.r]=!R[d.r];render();window.scrollTo(0,y)}
+ else if(d.reset){for(const o of[A,T,R])for(const k in o)delete o[k];render();window.scrollTo(0,0)}});
+document.addEventListener("input",e=>{if(e.target.dataset.t)T[e.target.dataset.t]=e.target.value});
+render();
+</script></body></html>
